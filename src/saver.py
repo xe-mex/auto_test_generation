@@ -1,4 +1,5 @@
 import gdspy
+import Polygon
 
 
 def save_test():
@@ -68,15 +69,33 @@ def load_file_test1():
 def save_gds_by_cells(cells, output_path):
     print(cells)
     lib = gdspy.GdsLibrary()
-    b = lib.new_cell("test")
-    a = gdspy.Rectangle((-5, -3), (5, 3), layer=1)
-    c = gdspy.Rectangle((-3, -5), (3, 5), layer=1)
-    b.add(a)
-    b.add(c)
-    polygons = b.get_polygons()
-    # for name, cell in cells.items():
-    #     lib.add(cell, include_dependencies=True, update_references=True)
-    #     cell.write_svg(f"./files/cell_{name}.svg")
-    lib.add(b, include_dependencies=True, update_references=True)
+    # b = lib.new_cell("test")
+    # a = gdspy.Rectangle((-5, -3), (5, 3), layer=1)
+
+    # c = gdspy.Rectangle((-3, -5), (3, 5), layer=1)
+    # b.add(a)
+    # b.add(c)
+    # polygons = b.get_polygons()
+    # print(polygons)
+    # cutout = gdspy.Polygon(
+    #     [(0, 0), (5, 0), (5, 5), (0, 5), (0, 0), (2, 2), (2, 3), (3, 3), (3, 2), (2, 2)]
+    # )
+    # cutout = gdspy.Polygon(
+    #     [(2, 2), (2, 3), (3, 3), (3, 2), (2, 2), (1, 1), (5, 1), (5, 5), (1, 5), (1, 1)]
+    # )
+    # cutout = gdspy.Polygon(
+    #     [
+    #      (0, 0), (5, 0), (5, 5), (0, 5), (0, 0),
+    #      (1, 1), (1, 4), (4, 4), (4, 1), (1, 1),
+    #      (2, 2), (2, 3), (3, 3), (3, 2), (2, 2)
+    #     ]
+    # )
+    # b.add(cutout)
+    for name, cell in cells.items():
+        # print(cell.get_polygons())
+        lib.add(cell)
+        # cell.write_svg(f"./files/cell_{name}.svg")
+    # lib.add(b, include_dependencies=True, update_references=True)
     lib.write_gds(output_path)
+    # b.write_svg("./files/out.svg")
     gdspy.LayoutViewer(lib)
