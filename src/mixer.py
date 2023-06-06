@@ -34,7 +34,7 @@ def _update_polygon(polygon, modify=1, step=0):
     polygon.translate((modify * _gen_var()) + step, (modify * _gen_var()) + step)
     # polygon.translate(_gen_var(), _gen_var())
     polygon.scale(_gen_var(), _gen_var())
-    polygon.rotate(triangular(0, pi, config["mu"]))
+    polygon.rotate(triangular(0, pi, float(config["mu"])))
     pass
 
 
@@ -49,5 +49,5 @@ def _check_polygon(polygon, polygons):
 
 
 def _gen_var():
-    return normalvariate(config["mu"], config["sigma"])
+    return normalvariate(float(config["mu"]), float(config["sigma"]))
     # return randrange(1, 2)

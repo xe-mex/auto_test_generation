@@ -1,5 +1,4 @@
 import gdspy
-import Polygon
 
 
 def save_test():
