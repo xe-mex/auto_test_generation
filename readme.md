@@ -1,18 +1,18 @@
 <h1>Программа генерации gds файлов по примеру</h1>
-
+<h6>Python 3.8+</h6>
 <h6>Используемые сторонние модули: gdspy, python-dotenv</h6>
 
-<h5>Цель разработки:</h5>
+<h5>Цели разработки:</h5>
 <p>Обеспечить генерацию gdp файлов, основываясь на эталонном файле</p>
 
 <h2>Использование:</h2>
 <p>Распакуйте архив с программой, установите модуль gdspy и запустите main.py</p>
 <h6>Примеры:</h6>
 <ul>
-    <li>python main.py</li>
-    <li>python main.py -i ./test1.gds</li>
-    <li>python main.py --in ./test1.gds --mu 1</li>
-    <li>set inputFile=./test1.gds && python main.py --in ./test1.gds --mu 1</li>
+    <li>"python main.py -i ./test1.gds"</li>
+    <li>"python main.py -i ./test1.gds -s 2"</li>
+    <li>"python main.py --in ./test1.gds --mu 1"</li>
+    <li>"set inputFile=./test1.gds && python main.py --mu 1 --sigma 2"</li>
 </ul>
 
 <h5>Конфигурация запуска:</h5>
