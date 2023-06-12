@@ -1,27 +1,28 @@
 import gdspy
-from random import normalvariate, triangular, randrange
-from src.configurator import config
-from math import pi
+from src.randomizer import gen_value_scale, gen_rotate_angular, gen_value_translate
 
 
 def mix(cells):
     mixed_cells = {}
     for name, cell in cells.items():
         temp_cell = gdspy.Cell(name)
-        temp_pol = _mix_polygons(cell.get_polygons())
+        temp_pol = _mix_polygons(cell, name)
         temp_cell.add(temp_pol)
         mixed_cells[name] = temp_cell
     return mixed_cells
 
 
-def _mix_polygons(polygons):
+def _mix_polygons(cell, cell_name):
+    # polygons = cell.get_polygons()
     mixed_polygons = []
-    for polygon in polygons:
+    # for polygon in polygons:
+    for polygon in cell.polygons:
         # print(polygon)
-        new_polygon = gdspy.Polygon(polygon)
+        # new_polygon = gdspy.Polygon(polygon)
+        new_polygon = polygon
         step = 0
         while True:
-            _update_polygon(new_polygon, step)
+            _update_polygon(new_polygon, cell_name, step=step)
             if _check_polygon(new_polygon, mixed_polygons):
                 break
             else:
@@ -30,24 +31,22 @@ def _mix_polygons(polygons):
     return mixed_polygons
 
 
-def _update_polygon(polygon, modify=1, step=0):
-    polygon.translate((modify * _gen_var()) + step, (modify * _gen_var()) + step)
+def _update_polygon(polygon, cell_name, *, modify=1, step=0):
+    polygon.translate(gen_value_translate(cell_name, modify=modify, step=step))
     # polygon.translate(_gen_var(), _gen_var())
-    polygon.scale(_gen_var(), _gen_var())
-    polygon.rotate(triangular(0, pi, float(config["mu"])))
+    polygon.scale(gen_value_scale(cell_name))
+    polygon.rotate(gen_rotate_angular(cell_name))
     pass
 
 
 def _check_polygon(polygon, polygons):
     for pol in polygons:
         # temp_pol = gdspy.Polygon(pol)
+        # print([method for method in dir(polygon) if method.startswith('__') is False])
+        if polygon.layers[0] != pol.layers[0]:
+            continue
         result = gdspy.boolean(polygon, pol, "and")
         if result:
             print("match detected")
             return False
     return True
-
-
-def _gen_var():
-    return normalvariate(float(config["mu"]), float(config["sigma"]))
-    # return randrange(1, 2)

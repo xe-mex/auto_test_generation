@@ -1,0 +1,23 @@
+{
+  "global": {
+    "round_coordinates": true,
+    "translate": {
+      "type": "random"
+    },
+    "rotate": {
+      "type": "random"
+    },
+    "scale1": "random",
+    "scale2": {
+      "type": "fix",
+      "values": [2, 2]
+    },
+    "scale": {
+      "both": {
+        "type": "choice",
+        "values": [2, 3]
+      }
+    }
+  },
+  "cells": {}
+}

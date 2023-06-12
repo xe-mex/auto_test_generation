@@ -59,6 +59,17 @@ def test2():
     main.write_svg("./files/second.svg")
 
 
+def test3():
+    lay1 = {"layer": 0}
+    lay2 = {"layer": 1}
+    p1 = gdspy.Rectangle((-2, -2), (2, 2), **lay1)
+    p2 = gdspy.Rectangle((-1, -1), (1, 1), **lay2)
+    lib = gdspy.GdsLibrary()
+    cell = lib.new_cell("one")
+    cell.add([p1, p2])
+    lib.write_gds("./files/test3.gds")
+
+
 def load_file_test1():
     lib = gdspy.GdsLibrary(infile="./files/second.gds")
     cells = lib.cells
