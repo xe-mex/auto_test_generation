@@ -1,5 +1,5 @@
 {
-  "global": {
+  "global1": {
     "round_coordinates": true,
     "translate": {
       "type": "random"
@@ -12,11 +12,16 @@
       "type": "fix",
       "values": [2, 2]
     },
-    "scale": {
-      "both": {
-        "type": "choice",
-        "values": [2, 3]
-      }
+    "scale3": {
+      "x": {
+        "type": "random",
+        "values": [2,5]
+      },
+      "y1": {
+        "type": "fix",
+        "values": 1
+      },
+      "y2": "random"
     }
   },
   "cells": {}
