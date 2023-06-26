@@ -10,12 +10,14 @@
       }
     },
     "rotate": {
-      "type": "random"
+      "angle": {
+        "type": "random"
+      }
     },
     "scale": {
       "x": {
         "type": "choice",
-        "values": [1,3,5]
+        "values": [1,1.5,2]
       },
       "y": {
         "type": "fix",

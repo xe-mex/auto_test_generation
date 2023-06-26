@@ -25,7 +25,9 @@ def show_help():
             python main.py --in ./test1.gds --name area
             set inputFile=./test1.gds && set fucn_name=area && python main.py
     """)
-    raise Exception("specify path to input file")
+    # raise Exception("specify path to input file")
+    # print("specify path to input file")
+    exit(-1)
 
 
 config = {
@@ -35,7 +37,7 @@ config = {
     "mu": args.mu or environ.get("mu") or 0,
     "sigma": args.sigma or environ.get("sigma") or 1,
     "config": args.config or environ.get("config") or None,
-    "func_name": args.func_name or environ.get("name") or show_help()
+    "func_name": args.func_name or environ.get("func_name") or show_help()
 }
 
 _advanced_config = None
@@ -49,6 +51,6 @@ if config["config"]:
 def get_config_for_cell(cell_name):
     if not _advanced_config:
         return None
-    return _advanced_config.get("cells").get(cell_name) or _advanced_config.get("global")
+    return (_advanced_config.get("cells") and _advanced_config.get("cells").get(cell_name)) or _advanced_config.get("global")
 
 # print(int(config["countTests"]))

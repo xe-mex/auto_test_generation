@@ -1,0 +1,31 @@
+Схема конфигурации:
+{
+    "round_coordinates"?: Boolean,
+    "global"?: <CellRule>,
+    "cells"?: {
+        "[cell_name]"?: <CellRule>,
+        ...
+    }
+}
+
+CellRule:
+{
+    "round_coordinates"?: Boolean,
+    "translate"?: <OperationRule>,
+    "scale"?: <OperationRule>,
+    "rotate"?: <OperationRule>
+}
+
+OperationRule:
+{
+    "both"? : "random" | <CoordinateRule>,
+    "x"?: "random" | <CoordinateRule>,
+    "y"?: "random" | <CoordinateRule>,
+    "angle"?: "random" | <CoordinateRule>,
+}
+
+CoordinateRule:
+{
+    "type": "random" | "fix" | "choice" | "range",
+    "values": None | Number | Array<Number> | Array<Integer>, len=2
+}

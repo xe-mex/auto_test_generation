@@ -36,7 +36,7 @@ def _update_polygon(polygon, cell_name, *, modify=1, step=0):
     (m1, m2) = (gen_value_translate(cell_name, modify=modify, step=step))
     polygon.translate(m1, m2)
     # polygon.translate(_gen_var(), _gen_var())
-    # polygon.rotate(gen_rotate_angular(cell_name))
+    polygon.rotate(gen_rotate_angular(cell_name))
     pass
 
 

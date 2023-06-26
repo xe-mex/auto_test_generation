@@ -26,7 +26,12 @@ def gen_value_translate(cell_name, *, modify=1, step=0):
 
 
 def gen_rotate_angular(cell_name):
-    return triangular(0, pi, float(config["mu"]))
+    rule = get_rule_for_operation(cell_name, gen_rotate_angular)
+    angle = _calculate_coordinate("angle", rule)
+    # triangular(0, pi, float(config["mu"]))
+    if not angle:
+        angle = 0
+    return angle
 
 
 def _calculate_coordinate(coordinate, rule):
@@ -62,8 +67,12 @@ def get_rule_for_operation(cell_name, operation):
             return {"type": rule}
         elif isinstance(rule, object):
             return rule
-    elif operation == "translate":
-        pass
+    elif operation == gen_rotate_angular:
+        rule = rules.get("rotate")
+        if isinstance(rule, str):
+            return {"type": rule}
+        elif isinstance(rule, object):
+            return rule
     else:
         raise Exception("Operation not provided")
 

@@ -1,0 +1,15 @@
+{
+  "global": {
+    "translate": {
+      "x": "random",
+      "y": "random"
+    },
+    "rotate": {
+      "angle": "random"
+    },
+    "scale": {
+      "x": "random",
+      "y": "random"
+    }
+  }
+}
