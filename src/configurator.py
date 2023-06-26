@@ -12,17 +12,18 @@ parser.add_argument("-c", "--count", dest="countTests", default=None)
 parser.add_argument("-mu", "--mu", dest="mu", default=None)
 parser.add_argument("-s", "--sigma", dest="sigma", default=None)
 parser.add_argument("-f", "--config", dest="config", default=None)
+parser.add_argument("-n", "--name", dest="func_name", default=None)
 args = parser.parse_args()
 
 
 def show_help():
     print("""
-        Expected path to input file
+        Expected path to input file and function name
         
         Examples:
-            python main.py -i ./test1.gds
-            python main.py --in ./test1.gds
-            set inputFile=./test1.gds && python main.py
+            python main.py -i ./test1.gds -n area
+            python main.py --in ./test1.gds --name area
+            set inputFile=./test1.gds && set fucn_name=area && python main.py
     """)
     raise Exception("specify path to input file")
 
@@ -33,7 +34,8 @@ config = {
     "countTests": args.countTests or environ.get("countTests") or 1,
     "mu": args.mu or environ.get("mu") or 0,
     "sigma": args.sigma or environ.get("sigma") or 1,
-    "config": args.config or environ.get("config") or None
+    "config": args.config or environ.get("config") or None,
+    "func_name": args.func_name or environ.get("name") or show_help()
 }
 
 _advanced_config = None

@@ -5,13 +5,24 @@ from math import pi
 
 def gen_value_scale(cell_name):
     rule = get_rule_for_operation(cell_name, gen_value_scale)
-    return _calculate_coordinate("x", rule), _calculate_coordinate("y", rule)
+    x = _calculate_coordinate("x", rule)
+    if not x:
+        x = 1
+    y = _calculate_coordinate("y", rule)
+    if not y:
+        y = 1
+    return x, y
 
 
 def gen_value_translate(cell_name, *, modify=1, step=0):
-    move = gen_value_scale(cell_name)
-    return 0, 0
-    return (modify * move[0]) + step, (modify * move[1]) + step
+    rule = get_rule_for_operation(cell_name, gen_value_translate)
+    x = _calculate_coordinate("x", rule)
+    if not x:
+        x = 1
+    y = _calculate_coordinate("y", rule)
+    if not y:
+        y = 1
+    return x, y
 
 
 def gen_rotate_angular(cell_name):
@@ -20,6 +31,8 @@ def gen_rotate_angular(cell_name):
 
 def _calculate_coordinate(coordinate, rule):
     coordinate_rule = get_rule_for_coordinate(coordinate, rule)
+    if not coordinate_rule:
+        return None
     type_rule = (isinstance(coordinate_rule, dict) and coordinate_rule.get("type")) or coordinate_rule or "random"
     if type_rule == "random":
         return _gen_norm_random()
@@ -43,8 +56,12 @@ def get_rule_for_operation(cell_name, operation):
             return {"type": rule}
         elif isinstance(rule, object):
             return rule
-    elif operation == "rotate":
-        pass
+    elif operation == gen_value_translate:
+        rule = rules.get("translate")
+        if isinstance(rule, str):
+            return {"type": rule}
+        elif isinstance(rule, object):
+            return rule
     elif operation == "translate":
         pass
     else:
@@ -52,7 +69,7 @@ def get_rule_for_operation(cell_name, operation):
 
 
 def get_rule_for_coordinate(coordinate, rule):
-    return (isinstance(rule, dict) and (rule.get("both") or rule.get(coordinate))) or "random"
+    return isinstance(rule, dict) and (rule.get("both") or rule.get(coordinate))
 
 
 def _gen_norm_random():
